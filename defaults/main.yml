@@ -1,0 +1,13 @@
+---
+icecast_config_file: /etc/icecast.xml
+icecast_location: Earth
+icecast_admin_email: icemaster@localhost
+icecast_source_password: ''
+icecast_relay_password: ''
+icecast_admin_user: icecast-admin
+icecast_admin_password: ''
+icecast_yp_xiph_enable: False
+icecast_hostname: example.com
+icecast_port: 8000
+icecast_user: icecast
+icecast_group: icecast
