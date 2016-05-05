@@ -3,6 +3,8 @@
 
 An Ansible role to configure and install Icecast
 
+Tested on openSUSE and on CentOS.  May work on others.  Requires ansible version 2.0
+
 ## Role Variables
 
 These are the current defaults:

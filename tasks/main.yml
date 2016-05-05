@@ -1,6 +1,6 @@
 ---
 - name: Install Icecast
-  zypper: 
+  package: 
     name: icecast
     state: present
 

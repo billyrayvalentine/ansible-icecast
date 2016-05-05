@@ -4,11 +4,15 @@ galaxy_info:
   description: Install and configure Icecast
   company: Cerium Level 5 LTD
   license: MIT
-  min_ansible_version: 1.2
+  min_ansible_version: 2.0
   platforms:
   - name: opensuse
     versions:
     - all
+  - name: EL
+    version:
+    - 6
+    - 7
   categories:
   - system
   dependencies: []
