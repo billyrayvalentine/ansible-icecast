@@ -10,7 +10,7 @@ galaxy_info:
     versions:
     - all
   - name: EL
-    version:
+    versions:
     - 6
     - 7
   categories:
