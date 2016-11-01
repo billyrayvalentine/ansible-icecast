@@ -44,7 +44,7 @@ icecast_mounts:
 ```
 
 ## Master server relay
-Icecast refers to its two types of relaying as either "Master server relay" (relay all master mounts) or "Specific mount relay" (relay specific master mounts).
+Icecast refers to its two types of relaying as either "Master server relay" (relay all master mounts) or "Specific mountpoint relay" (relay specific master mounts).
 
 The following demonstrates a minimal master server and relay server using this role.
 
