@@ -1,10 +1,14 @@
+#jinja2: lstrip_blocks: "True (or False)", trim_blocks: "True (or False)"
 <!-- {{ ansible_managed }} -->
 <icecast>
   <location>{{ icecast_location }}</location>
   <admin>{{ icecast_admin_email }}</admin>
+  <hostname>{{ icecast_hostname }}</hostname>
+  <fileserve>1</fileserve>
+
   <limits>
     <clients>100</clients>
-    <sources>2</sources>
+    <sources>{{ icecast_sources }}</sources>
     <threadpool>5</threadpool>
     <queue-size>524288</queue-size>
     <client-timeout>30</client-timeout>
@@ -13,37 +17,96 @@
     <burst-on-connect>1</burst-on-connect>
     <burst-size>65535</burst-size>
   </limits>
+
   <authentication>
     <source-password>{{ icecast_source_password }}</source-password>
+    <relay-user>{{ icecast_relay_user }}</relay-user>
     <relay-password>{{ icecast_relay_password }}</relay-password>
     <admin-user>{{ icecast_admin_user }}</admin-user>
     <admin-password>{{ icecast_admin_password }}</admin-password>
   </authentication>
+
+{% if icecast_master_server_relay_enable %}
+  <master-server>{{ icecast_master_server }}</master-server>
+  <master-server-port>{{ icecast_master_server_port }}</master-server-port>
+  <master-update-interval>{{ icecast_master_update_interval }}</master-update-interval>
+  <master-username>{{ icecast_master_username }}</master-username>
+  <master-password>{{ icecast_master_password }}</master-password>
+  <relays-on-demand>{{ icecast_relays_on_demand }}</relays-on-demand>
+
+{% endif %}
+{# icecast relay_mounts #}
+{% if icecast_relay_mounts is defined %}
+  {% for relay_mount in icecast_relay_mounts %}
+  <relay>
+    {% for key, value in relay_mount.iteritems() %}
+      {# check for valid values rather that use multiple if statements #}
+      {% if key in ['server', 'port', 'mount', 'local-mount', 'username', 
+        'password', 'relay-shoutcast-metadata', 'on-demand'] %}
+    <{{ key }}>{{ value }}</{{ key }}>
+      {% endif %}
+    {% endfor %}
+  </relay>
+
+  {% endfor %}
+{% endif %}
+{# icecast mounts #}
+{% if icecast_mounts is defined %}
+  {% for mount in icecast_mounts %}
+  <mount type="{{ mount['type'] | default('normal') }}">
+    {% for key, value in mount.iteritems() %}
+      {# check for valid values rather that use multiple if statements #}
+      {% if key in ['mount-name', 'username', 'password', 'max-listeners', 'dump-file', 'intro',
+        'fallback-mount', 'fallback-override', 'fallback-when-full', 'charset', 
+        'public', 'stream-name', 'stream-description', 'stream-url', 'genre', 
+        'bitrate', 'subtype', 'hidden', 'burst-size',
+        'mp3-metadata-interval', 'authentication', 'http-headers', 'on-connect', 
+        'on-disconnect'] %}
+    <{{ key }}>{{ value }}</{{ key }}>
+      {% endif %}
+    {% endfor %}
+  </mount>
+
+  {% endfor %}
+{% endif %}
 {% if icecast_yp_xiph_enable %}
+
   <directory>
     <yp-url-timeout>15</yp-url-timeout>
     <yp-url>http://dir.xiph.org/cgi-bin/yp-cgi</yp-url>
   </directory>
+
 {% endif %}
-  <hostname>{{ icecast_hostname }}</hostname>
+{% for listen_socket in icecast_listen_sockets %}
   <listen-socket>
-    <port>{{ icecast_port }}</port>
+  {% for key, value in listen_socket.iteritems() %}
+    {# check for valid values rather that use multiple if statements #}
+    {% if key in ['port', 'bind-address', 'ssl', 'shoutcast-mount', 'shoutcast-compat'] %}
+    <{{ key }}>{{ value }}</{{ key }}>
+    {% endif %}
+  {% endfor %}
   </listen-socket>
-  <fileserve>1</fileserve>
+
+{% endfor %}
   <paths>
     <basedir>/usr/share/icecast</basedir>
     <logdir>/var/log/icecast</logdir>
     <webroot>/usr/share/icecast/web</webroot>
     <adminroot>/usr/share/icecast/admin</adminroot>
     <pidfile>/var/run/icecast.pid</pidfile>
+    {% if icecast_ssl_certificate is defined %}
+    <ssl-certificate>{{ icecast_ssl_certificate }}</ssl-certificate>
+    {% endif %}
     <alias source="/" destination="/status.xsl" />
   </paths>
+  
   <logging>
-    <accesslog>access.log</accesslog>
-    <errorlog>error.log</errorlog>
-    <loglevel>3</loglevel>
+    <accesslog>{{ icecast_accesslog }}</accesslog>
+    <errorlog>{{ icecast_errorlog }}</errorlog>
+    <loglevel>{{ icecast_loglevel }}</loglevel>
     <logsize>10000</logsize>
   </logging>
+  
   <security>
     <chroot>0</chroot>
     <changeowner>

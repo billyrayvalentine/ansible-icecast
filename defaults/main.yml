@@ -2,12 +2,30 @@
 icecast_config_file: /etc/icecast.xml
 icecast_location: Earth
 icecast_admin_email: icemaster@localhost
-icecast_source_password: ''
-icecast_relay_password: ''
+icecast_source_password: 
+icecast_relay_user: relay
+icecast_relay_password: 
 icecast_admin_user: icecast-admin
-icecast_admin_password: ''
-icecast_yp_xiph_enable: False
+icecast_admin_password: 
 icecast_hostname: example.com
-icecast_port: 8000
 icecast_user: icecast
 icecast_group: icecast
+
+icecast_accesslog: access.log
+icecast_errorlog: error.log
+icecast_loglevel: 3
+
+icecast_yp_xiph_enable: False
+
+icecast_master_server_relay_enable: False
+icecast_master_server:
+icecast_master_server_port: 8000
+icecast_master_update_interval: 120 
+icecast_master_username: relay 
+icecast_master_password:
+icecast_relays_on_demand: 0 
+
+icecast_listen_sockets:
+  - port: 8000
+
+icecast_sources: 2
