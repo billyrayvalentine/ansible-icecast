@@ -133,5 +133,17 @@ The following values can be used to overide the corresponding log settings.
 
 ```icecast_hostname``` - Sets the icecast hostname and should be set when using a directory service.
 
+# Global HTTP headers 
+None or more global HTTP headers can be specified as demonstrated below.  ```name``` and ```value``` are required.
+
+```yaml
+icecast_http_headers:
+  - name: Access-Control-Allow-Origin
+    value: "*"
+  - name: random
+    value: hello
+    status: 404
+```
+
 # License
 MIT

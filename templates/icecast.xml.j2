@@ -26,6 +26,14 @@
     <admin-password>{{ icecast_admin_password }}</admin-password>
   </authentication>
 
+{% if icecast_http_headers is defined %}
+  <http-headers>
+  {% for http_header in icecast_http_headers %}
+    <header name="{{ http_header['name'] }}" value="{{ http_header['value'] }}"{% if http_header['status'] is defined %} status="{{ http_header['status'] }}" {% endif %} />
+  {% endfor %}
+  </http-headers>
+
+{% endif %}
 {% if icecast_master_server_relay_enable %}
   <master-server>{{ icecast_master_server }}</master-server>
   <master-server-port>{{ icecast_master_server_port }}</master-server-port>
