@@ -1,5 +1,7 @@
 # README.md
 # Ansible Role: icecast
+Updated for Python3
+
 Version 2.x is a comprehensive and flexible Ansible role to configure and install Icecast.  It can be used to configure Icecast as a standalone system, a master or a slave.  Multiple mounts and relay mounts can be configured if required.  Most aspects of Icecast can be configured for advanced use but there are enough sensible defaults to get a working system with very few role variables.  
 
 Tested on openSUSE and on CentOS.  May work on others.  Requires Ansible version >=2.0

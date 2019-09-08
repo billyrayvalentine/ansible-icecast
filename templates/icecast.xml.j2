@@ -47,7 +47,7 @@
 {% if icecast_relay_mounts is defined %}
   {% for relay_mount in icecast_relay_mounts %}
   <relay>
-    {% for key, value in relay_mount.iteritems() %}
+    {% for key, value in relay_mount.items() %}
       {# check for valid values rather that use multiple if statements #}
       {% if key in ['server', 'port', 'mount', 'local-mount', 'username', 
         'password', 'relay-shoutcast-metadata', 'on-demand'] %}
@@ -62,7 +62,7 @@
 {% if icecast_mounts is defined %}
   {% for mount in icecast_mounts %}
   <mount type="{{ mount['type'] | default('normal') }}">
-    {% for key, value in mount.iteritems() %}
+    {% for key, value in mount.items() %}
       {# check for valid values rather that use multiple if statements #}
       {% if key in ['mount-name', 'username', 'password', 'max-listeners', 'dump-file', 'intro',
         'fallback-mount', 'fallback-override', 'fallback-when-full', 'charset', 
@@ -87,7 +87,7 @@
 {% endif %}
 {% for listen_socket in icecast_listen_sockets %}
   <listen-socket>
-  {% for key, value in listen_socket.iteritems() %}
+  {% for key, value in listen_socket.items() %}
     {# check for valid values rather that use multiple if statements #}
     {% if key in ['port', 'bind-address', 'ssl', 'shoutcast-mount', 'shoutcast-compat'] %}
     <{{ key }}>{{ value }}</{{ key }}>

@@ -1,17 +1,17 @@
 ---
 - name: Install Icecast
-  package: 
+  package:
     name: icecast
     state: present
 
 - name: Install Icecast configuration file
-  template: 
-    src: icecast.xml.j2 
+  template:
+    src: icecast.xml.j2
     dest: "{{ icecast_config_file }}"
-    owner: "{{ icecast_user }}" 
-    group: "{{ icecast_group }}"  
+    owner: "{{ icecast_user }}"
+    group: "{{ icecast_group }}"
     mode: 0640
-  notify: 
+  notify:
     - reload icecast
 
 - name: Enable Icecast service
